@@ -1,0 +1,16 @@
+FROM node:22
+
+WORKDIR /app
+
+COPY . .
+
+# Copy environment config
+COPY .env.docker .env
+
+RUN npm install
+
+# Set Vite to use port 5174
+EXPOSE 5174
+
+# Run Vite on host with port override
+CMD ["npm", "run", "dev", "--", "--host", "--port", "5174"]

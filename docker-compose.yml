@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # Laravel App
+  laravel:
+    build:
+      context: ./back-end
+    container_name: card_backend
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - /var/www/vendor
+    # MYSQL Alternative
+    # depends_on:
+      # mysql:
+        # condition: service_healthy
+    # PostgreSQL Alternative
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  # Vue Frontend
+  vue:
+    build: 
+      context: ./front-end/vue-app
+    ports:
+      - "5174:5174"
+    volumes:
+      - ./front-end/vue-app:/app
+      - /app/node_modules  # Prevent host's node_modules from being used
+    depends_on:
+      - laravel
+
+  # React Frontend
+  react:
+    build: 
+      context: ./front-end/react-app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./front-end/react-app:/app
+      - /app/node_modules  # Prevent host's node_modules from being used
+    depends_on:
+      - laravel
+
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: 'card-distribution-tyrell'
+      MYSQL_ROOT_HOST: '%'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 6s
+      timeout: 4s
+      retries: 5
+
+  # PostgreSQL (optional, switch in .env)
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: 'card-distribution-tyrell'
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 6s
+      timeout: 4s
+      retries: 5
+volumes:
+  mysql-data:
+  postgres-data:
