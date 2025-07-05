@@ -81,7 +81,7 @@ Exposes an API endpoint to distribute 52 playing cards randomly among `n` people
 
 ### 📋 Requirements
 
-- PHP ≥ 7.4  
+- PHP ≥ 8.2 
 - Composer ≥ 2  
 - Laravel ≥ 12  
 - Vite ≥ 6.2  
