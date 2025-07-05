@@ -66,7 +66,7 @@ To view the container with a GUI, you may utilize [Docker Desktop](https://www.d
 
 Clone the git repository:
 ```
-https://github.com/KTLeow93584/Card-Distribution-Demo-Tyrell.git
+git clone https://github.com/KTLeow93584/Card-Distribution-Demo-Tyrell.git
 ```
 
 ---
