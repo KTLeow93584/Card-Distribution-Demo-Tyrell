@@ -69,6 +69,17 @@ docker image rm (IMAGE ID 1) (IMAGE ID 2) (And so forth)
 
 To view the container with a GUI, you may utilize [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
+### Switching from MySQL to PostgreSQL
+
+To switch DB types, you'll need to modify both the `.env.docker` and `docker-compose.yml` files as follows:
+
+`env.docker`
+![image](https://github.com/user-attachments/assets/9e3d690b-e435-4c76-a163-76dd36cbb57a)
+
+`docker-compose.yml`
+![image](https://github.com/user-attachments/assets/decb156c-f4f7-423a-8060-a6f81c5cecb3)
+
+- It also works the other way round from PostgreSQL to MySQL.
 ---
 
 ## 🧰 Option 2: Manual Git Setup
