@@ -9,15 +9,19 @@ services:
     restart: unless-stopped
     working_dir: /var/www
     volumes:
+      # Current known limitation: This will overwrite the processes declared in the back-end's dockerfile and entrypoint.sh,
+      # causing the ".env" file to be missing.
+      # Note: Back-end changes will not be reflected in the container until rebuilt as long as this is commented out.
+      # - ./back-end:/var/www
       - /var/www/vendor
     # MYSQL Alternative
-    # depends_on:
-      # mysql:
-        # condition: service_healthy
-    # PostgreSQL Alternative
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
+    # PostgreSQL Alternative
+    # depends_on:
+    #   postgres:
+    #     condition: service_healthy
     ports:
       - "8000:8000"
 
@@ -30,6 +34,9 @@ services:
     volumes:
       - ./front-end/vue-app:/app
       - /app/node_modules  # Prevent host's node_modules from being used
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     depends_on:
       - laravel
 
@@ -42,6 +49,9 @@ services:
     volumes:
       - ./front-end/react-app:/app
       - /app/node_modules  # Prevent host's node_modules from being used
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     depends_on:
       - laravel
 

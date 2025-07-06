@@ -11,10 +11,11 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Then copy rest of the files
 COPY . .
 
-# Copy environment config
-COPY .env.docker .env
+# Now copy the .env file
+RUN cp .env.docker .env
 
 # Ensure cache folders exist
 RUN mkdir -p /var/www/storage/framework/cache
