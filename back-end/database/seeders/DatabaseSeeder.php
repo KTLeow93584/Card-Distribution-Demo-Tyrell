@@ -15,9 +15,27 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        
+        $this->call([
+            JobCategorySeeder::class,
+            JobTypeSeeder::class,
+            JobSeeder::class,
+            PersonalitySeeder::class,
+            PracticalSkillSeeder::class,
+            BasicAbilitySeeder::class,
+            AffiliateSeeder::class,
+            JobPersonalitySeeder::class,
+            JobPracticalSkillSeeder::class,
+            JobBasicAbilitySeeder::class,
+            JobToolSeeder::class,
+            JobCareerPathSeeder::class,
+            JobRecQualificationSeeder::class,
+            JobReqQualificationSeeder::class,
         ]);
     }
 }
