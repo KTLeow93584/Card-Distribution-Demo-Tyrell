@@ -58,6 +58,15 @@ To bring down the container:
 docker-compose down -v
 ```
 
+Double confirm that the images are also successfully removed via:
+```
+docker image ls
+```
+If they're still there, run the following:
+```
+docker image rm (IMAGE ID 1) (IMAGE ID 2) (And so forth)
+```
+
 To view the container with a GUI, you may utilize [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 ---
