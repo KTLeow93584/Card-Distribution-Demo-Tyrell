@@ -153,7 +153,10 @@ DB_PASSWORD=your_password
 #### 6. Migrate Database
 
 ```
-php artisan migrate
+php artisan migrate --seed
+
+# Restart Migrations
+php artisan migrate:refresh --seed
 ```
 
 #### 7. Run Development Server
@@ -166,6 +169,10 @@ php artisan serve
 
 ```
 php artisan test --testsuite=Feature
+
+# To Test the SQL Query Performance Differences
+.phpunit --filter testJobSearchPerformance ./tests/Feature/JobSearchPerformanceTest.php
+.phpunit --filter testOptimizedJobSearchPerformance ./tests/Feature/JobSearchPerformanceTest.php
 ```
 
 # 🎴 Frontend (Vue)
